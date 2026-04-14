@@ -1,0 +1,18 @@
+﻿//using System;
+
+//public class Class1
+//{
+//	public Class1()
+//	{
+//	}
+//}
+
+namespace TaskManagementAPI.Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+}
