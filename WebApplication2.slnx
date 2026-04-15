@@ -1,9 +1,16 @@
 <Solution>
+  <Folder Name="/Attributes/">
+    <File Path="FutureDateAttribute.cs" />
+  </Folder>
   <Folder Name="/Data/">
     <File Path="ApplicationDbContext.cs" />
   </Folder>
   <Folder Name="/DTOs/">
+    <File Path="CategoryDto.cs" />
+    <File Path="CreateCategoryDto.cs" />
+    <File Path="CreateTodoItemDto.cs" />
     <File Path="CreateUserDto.cs" />
+    <File Path="TodoItemDto.cs" />
     <File Path="UserDto.cs" />
   </Folder>
   <Folder Name="/Models/">

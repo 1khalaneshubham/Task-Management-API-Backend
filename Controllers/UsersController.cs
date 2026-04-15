@@ -33,6 +33,28 @@ namespace TaskManagementAPI.Controllers
             return Ok(users);
         }
 
+        // GET: api/users/search?name=john - Search users by name
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> SearchUsers([FromQuery] string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return await GetUsers(); // Return all if no search term
+            }
+
+            var users = await _context.Users
+                .Where(u => u.Name.Contains(name) || u.Email.Contains(name))
+                .Select(u => new UserDto
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Email = u.Email
+                })
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
         // GET: api/users/{id} - Read single user
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(int id)

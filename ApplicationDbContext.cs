@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManagementAPI.Data;
-
-using TaskManagementAPI.Models;  // You'll create Models folder next
+using TaskManagementAPI.Models;
 
 namespace TaskManagementAPI.Data
 {
@@ -12,9 +10,8 @@ namespace TaskManagementAPI.Data
         {
         }
 
-        // DbSets will go here after you create models
         public DbSet<User> Users { get; set; }
-        public DbSet<TodoItem> Tasks { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<TodoItem> TodoItems { get; set; }  // Changed from Task to TodoItem
     }
 }

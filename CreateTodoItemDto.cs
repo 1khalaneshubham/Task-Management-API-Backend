@@ -1,18 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+using TaskManagementAPI.Attributes;
 
-namespace TaskManagementAPI.Models
+namespace TaskManagementAPI.DTOs
 {
-    public class TodoItem
+    public class CreateTodoItemDto
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Title is required")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Title must be between 3 and 100 characters")]
+        [StringLength(100, MinimumLength = 3)]
         public string Title { get; set; }
 
-        [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters")]
+        [StringLength(500)]
         public string Description { get; set; }
 
         public bool IsCompleted { get; set; }
@@ -21,32 +19,21 @@ namespace TaskManagementAPI.Models
         [FutureDate(ErrorMessage = "Due date cannot be in the past")]
         public DateTime DueDate { get; set; }
 
-        // Foreign Keys
         [Required(ErrorMessage = "User ID is required")]
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Category ID is required")]
         public int CategoryId { get; set; }
-
-        // Navigation Properties
-        [JsonIgnore]
-        public User User { get; set; }
-
-        [JsonIgnore]
-        public Category Category { get; set; }
     }
 
-    // Custom Validation Attribute for Future Date
+    // Custom validation attribute
     public class FutureDateAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value is DateTime date)
+            if (value is DateTime date && date.Date < DateTime.Today)
             {
-                if (date.Date < DateTime.Today)
-                {
-                    return new ValidationResult(ErrorMessage ?? "Date cannot be in the past");
-                }
+                return new ValidationResult(ErrorMessage ?? "Due date cannot be in the past");
             }
             return ValidationResult.Success;
         }
